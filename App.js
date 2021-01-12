@@ -74,25 +74,28 @@ const Feed = () => {
 
 
 
+
+
 // Load More / Loading Button with indicator
 
 const LoadMore = () => {
-  
   const [isLoading, setIsLoading] = useState(false)
   const [loadingText, setLoadingText] = useState(true)
   
-  const CustomAlert = () => {
-    Alert.alert("Title", "Message", [
-      {
-        text: 'OK',
-        onPress: () => console.log('ok was pressed')
-      }
-    ])
-}
+  function showAlert() {  
+    Alert.alert('Unable to load','There was an error, Please try again', [  
+            {  
+              text: 'OK',  
+              onPress: () => {setLoadingText((prev) => !prev); setIsLoading((prev) => !prev)  }
+            }
+        ]  
+    );  
+} 
+
   return (
     <View style={{height:100, justifyContent:'center' ,flexDirection:'row'}}>
       <View style={{ flex: 1,flexDirection: 'row', justifyContent: 'center', alignItems:'center', backgroundColor: 'white'}}>
-        <Button title={loadingText ? 'Load More' : 'Loading'} onPress={()=> {setLoadingText((prev) => !prev); setIsLoading((prev) => !prev);{CustomAlert}}}/>
+        <Button title={loadingText ? 'Load More' : 'Loading'} onPress={()=> {setLoadingText((prev) => !prev); setIsLoading((prev) => !prev);{showAlert()}}}/>
         <ActivityIndicator animating={isLoading} />
       </View>
     </View>
